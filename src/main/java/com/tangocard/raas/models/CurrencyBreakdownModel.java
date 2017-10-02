@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class CurrencyBreakdownModel 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5411073901369224876L;
+    private static final long serialVersionUID = 5357217479997891820L;
     private String currencyCode;
     private Double exchangeRate;
     private Double fee;

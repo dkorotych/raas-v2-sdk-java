@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class AccountModel 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 4614541385856106818L;
+    private static final long serialVersionUID = 5003127072141637714L;
     private String accountIdentifier;
     private String displayName;
     private String currencyCode = "USD";

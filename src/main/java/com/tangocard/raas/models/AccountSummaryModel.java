@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class AccountSummaryModel 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5649636036162677496L;
+    private static final long serialVersionUID = 5177971519574991581L;
     private String accountIdentifier;
     private String displayName;
     private Date createdAt;

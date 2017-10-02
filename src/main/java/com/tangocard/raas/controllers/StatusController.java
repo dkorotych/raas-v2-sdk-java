@@ -70,7 +70,7 @@ public class StatusController extends BaseController {
 
         //load all headers for the outgoing API request
         Map<String, String> _headers = new HashMap<String, String>() {
-            private static final long serialVersionUID = 5059611885180751064L;
+            private static final long serialVersionUID = 5170237637338389104L;
             {
                     put( "user-agent", "TangoCardv2NGSDK" );
                     put( "accept", "application/json" );

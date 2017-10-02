@@ -77,7 +77,7 @@ public class CustomersController extends BaseController {
 
         //process template parameters
         APIHelper.appendUrlWithTemplateParameters(_queryBuilder, new HashMap<String, Object>() {
-            private static final long serialVersionUID = 4761399796691843403L;
+            private static final long serialVersionUID = 5660972202371112094L;
             {
                     put( "customerIdentifier", customerIdentifier );
             }});
@@ -86,7 +86,7 @@ public class CustomersController extends BaseController {
 
         //load all headers for the outgoing API request
         Map<String, String> _headers = new HashMap<String, String>() {
-            private static final long serialVersionUID = 5480297857209282617L;
+            private static final long serialVersionUID = 4742818259007591031L;
             {
                     put( "user-agent", "TangoCardv2NGSDK" );
                     put( "accept", "application/json" );
@@ -195,7 +195,7 @@ public class CustomersController extends BaseController {
 
         //load all headers for the outgoing API request
         Map<String, String> _headers = new HashMap<String, String>() {
-            private static final long serialVersionUID = 4772656327235065573L;
+            private static final long serialVersionUID = 5318388359807393701L;
             {
                     put( "user-agent", "TangoCardv2NGSDK" );
                     put( "accept", "application/json" );
@@ -296,7 +296,7 @@ public class CustomersController extends BaseController {
 
         //load all headers for the outgoing API request
         Map<String, String> _headers = new HashMap<String, String>() {
-            private static final long serialVersionUID = 5051411522972405927L;
+            private static final long serialVersionUID = 5143564678466026565L;
             {
                     put( "user-agent", "TangoCardv2NGSDK" );
                     put( "accept", "application/json" );

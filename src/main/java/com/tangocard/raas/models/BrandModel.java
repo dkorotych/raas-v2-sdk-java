@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class BrandModel 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5406418759664624127L;
+    private static final long serialVersionUID = 4615420074111686023L;
     private String brandKey;
     private String brandName;
     private String disclaimer;

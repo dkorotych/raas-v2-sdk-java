@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class NameEmailModel 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 4920750908732151244L;
+    private static final long serialVersionUID = 5687801840418340143L;
     private String email;
     private String firstName;
     private String lastName;

@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class SystemStatusResponseModel 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5580248254863883478L;
+    private static final long serialVersionUID = 5371666584751696181L;
     private String status;
     /** GETTER
      * System Status

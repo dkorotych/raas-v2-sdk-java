@@ -33,7 +33,7 @@ public class Configuration {
     public static String getBaseUri(Servers server) {
         StringBuilder baseUrl = new StringBuilder(environmentsMap.get(Configuration.environment).get(server));
         Map<String, Object> parameters = new HashMap<String, Object>() {
-            private static final long serialVersionUID = 5056588332113500075L;
+            private static final long serialVersionUID = 5560876128634869390L;
             {
             }
         };
@@ -53,34 +53,34 @@ public class Configuration {
      * Map of all base URLs by environments and server aliases 
      */
     private static EnumMap<Environments, EnumMap<Servers, String>> environmentsMap = new EnumMap<Environments, EnumMap<Servers,String>>(Environments.class) {
-        private static final long serialVersionUID = 5344324553138283564L;
+        private static final long serialVersionUID = 5586501950105096363L;
         {
             put(Environments.SANDBOX , new EnumMap<Servers, String>(Servers.class) {
-                private static final long serialVersionUID = 4825093657865819686L;
+                private static final long serialVersionUID = 4644756435500478620L;
                 {
                     put(Servers.DEFAULT, "https://integration-api.tangocard.com/raas/v2");
                 }
             });
             put(Environments.PRODUCTION , new EnumMap<Servers, String>(Servers.class) {
-                private static final long serialVersionUID = 5734435513651661261L;
+                private static final long serialVersionUID = 5062950070316985844L;
                 {
                     put(Servers.DEFAULT, "https://api.tangocard.com/raas/v2");
                 }
             });
             put(Environments.QA , new EnumMap<Servers, String>(Servers.class) {
-                private static final long serialVersionUID = 5525222137175583755L;
+                private static final long serialVersionUID = 5666145083637537567L;
                 {
                     put(Servers.DEFAULT, "https://qa-api.tangocard.com/raas/v2");
                 }
             });
             put(Environments.GAMMA , new EnumMap<Servers, String>(Servers.class) {
-                private static final long serialVersionUID = 5230825091462583137L;
+                private static final long serialVersionUID = 5738338152046464502L;
                 {
                     put(Servers.DEFAULT, "https://gamma-api.tangocard.com/raas/v2");
                 }
             });
             put(Environments.LOCAL , new EnumMap<Servers, String>(Servers.class) {
-                private static final long serialVersionUID = 4684404098791953803L;
+                private static final long serialVersionUID = 4665412867131998879L;
                 {
                     put(Servers.DEFAULT, "http://raastango.cc:8080/v2");
                 }

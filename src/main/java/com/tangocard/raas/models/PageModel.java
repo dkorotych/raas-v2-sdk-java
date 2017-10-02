@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class PageModel 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5403554540793029306L;
+    private static final long serialVersionUID = 5244163895414584219L;
     private int number;
     private int elementsPerBlock;
     private int resultCount;

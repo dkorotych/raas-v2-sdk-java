@@ -8,6 +8,7 @@ package com.tangocard.raas.controllers;
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.*;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import com.tangocard.raas.*;
 import com.tangocard.raas.models.*;
@@ -40,15 +41,15 @@ public class ExchangeRatesController extends BaseController {
 
     /**
      * Retrieve current exchange rates
-     * @return    Returns the void response from the API call 
+     * @return    Returns the ExchangeRateResponseModel response from the API call 
      */
-    public void getExchangeRates(
+    public ExchangeRateResponseModel getExchangeRates(
     ) throws Throwable {
-        APICallBackCatcher<Object> callback = new APICallBackCatcher<Object>();
+        APICallBackCatcher<ExchangeRateResponseModel> callback = new APICallBackCatcher<ExchangeRateResponseModel>();
         getExchangeRatesAsync(callback);
         if(!callback.isSuccess())
             throw callback.getError();
-        callback.getResult();
+        return callback.getResult();
     }
 
     /**
@@ -56,7 +57,7 @@ public class ExchangeRatesController extends BaseController {
      * @return    Returns the void response from the API call 
      */
     public void getExchangeRatesAsync(
-                final APICallBack<Object> callBack
+                final APICallBack<ExchangeRateResponseModel> callBack
     ) {
         //the base uri for api requests
         String _baseUri = Configuration.getBaseUri();
@@ -69,9 +70,10 @@ public class ExchangeRatesController extends BaseController {
 
         //load all headers for the outgoing API request
         Map<String, String> _headers = new HashMap<String, String>() {
-            private static final long serialVersionUID = 5500451968816888323L;
+            private static final long serialVersionUID = 4806739176603906026L;
             {
                     put( "user-agent", "TangoCardv2NGSDK" );
+                    put( "accept", "application/json" );
             }
         };
 
@@ -102,11 +104,19 @@ public class ExchangeRatesController extends BaseController {
                             //handle errors defined at the API level
                             validateResponse(_response, _context);
 
+                            //extract result from the http response
+                            String _responseBody = ((HttpStringResponse)_response).getBody();
+                            ExchangeRateResponseModel _result = APIHelper.deserialize(_responseBody,
+                                                        new TypeReference<ExchangeRateResponseModel>(){});
+
                             //let the caller know of the success
-                            callBack.onSuccess(_context, _context);
+                            callBack.onSuccess(_context, _result);
                         } catch (APIException error) {
                             //let the caller know of the error
                             callBack.onFailure(_context, error);
+                        } catch (IOException ioException) {
+                            //let the caller know of the caught IO Exception
+                            callBack.onFailure(_context, ioException);
                         } catch (Exception exception) {
                             //let the caller know of the caught Exception
                             callBack.onFailure(_context, exception);

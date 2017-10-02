@@ -18,6 +18,14 @@ public class RaasClient {
     }
 
     /**
+     * Singleton access to Catalog controller
+     * @return	Returns the CatalogController instance 
+     */
+    public CatalogController getCatalog() {
+        return CatalogController.getInstance();
+    }
+
+    /**
      * Singleton access to Orders controller
      * @return	Returns the OrdersController instance 
      */
@@ -26,11 +34,11 @@ public class RaasClient {
     }
 
     /**
-     * Singleton access to Catalog controller
-     * @return	Returns the CatalogController instance 
+     * Singleton access to Customers controller
+     * @return	Returns the CustomersController instance 
      */
-    public CatalogController getCatalog() {
-        return CatalogController.getInstance();
+    public CustomersController getCustomers() {
+        return CustomersController.getInstance();
     }
 
     /**
@@ -50,11 +58,11 @@ public class RaasClient {
     }
 
     /**
-     * Singleton access to Customers controller
-     * @return	Returns the CustomersController instance 
+     * Singleton access to Fund controller
+     * @return	Returns the FundController instance 
      */
-    public CustomersController getCustomers() {
-        return CustomersController.getInstance();
+    public FundController getFund() {
+        return FundController.getInstance();
     }
 
     /**

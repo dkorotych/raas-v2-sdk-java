@@ -70,7 +70,7 @@ public class CatalogController extends BaseController {
 
         //load all headers for the outgoing API request
         Map<String, String> _headers = new HashMap<String, String>() {
-            private static final long serialVersionUID = 5214664587949644033L;
+            private static final long serialVersionUID = 4711842072595440414L;
             {
                     put( "user-agent", "TangoCardv2NGSDK" );
                     put( "accept", "application/json" );

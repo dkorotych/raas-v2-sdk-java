@@ -106,11 +106,12 @@ RaasClient client = new RaasClient(platformName, platformKey);
 ## <a name="list_of_controllers"></a>List of Controllers
 
 * [AccountsController](#accounts_controller)
-* [OrdersController](#orders_controller)
 * [CatalogController](#catalog_controller)
+* [OrdersController](#orders_controller)
+* [CustomersController](#customers_controller)
 * [ExchangeRatesController](#exchange_rates_controller)
 * [StatusController](#status_controller)
-* [CustomersController](#customers_controller)
+* [FundController](#fund_controller)
 
 ## <a name="accounts_controller"></a>![Class: ](https://apidocs.io/img/class.png "com.tangocard.raas.controllers.AccountsController") AccountsController
 
@@ -121,41 +122,6 @@ The singleton instance of the ``` AccountsController ``` class can be accessed f
 ```java
 AccountsController accounts = client.getAccounts();
 ```
-
-### <a name="get_accounts_by_customer_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.AccountsController.getAccountsByCustomerAsync") getAccountsByCustomerAsync
-
-> Gets a list of accounts for a given customer
-
-
-```java
-void getAccountsByCustomerAsync(
-        final String customerIdentifier,
-        final APICallBack<List<AccountSummaryModel>> callBack)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| customerIdentifier |  ``` Required ```  | Customer Identifier |
-
-
-#### Example Usage
-
-```java
-String customerIdentifier = "customerIdentifier";
-// Invoking the API call with sample inputs
-accounts.getAccountsByCustomerAsync(customerIdentifier, new APICallBack<List<AccountSummaryModel>>() {
-    public void onSuccess(HttpContext context, List<AccountSummaryModel> response) {
-        // TODO success callback handler
-    }
-    public void onFailure(HttpContext context, Throwable error) {
-        // TODO failure callback handler
-    }
-});
-
-```
-
 
 ### <a name="get_account_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.AccountsController.getAccountAsync") getAccountAsync
 
@@ -182,6 +148,31 @@ String accountIdentifier = "accountIdentifier";
 // Invoking the API call with sample inputs
 accounts.getAccountAsync(accountIdentifier, new APICallBack<AccountModel>() {
     public void onSuccess(HttpContext context, AccountModel response) {
+        // TODO success callback handler
+    }
+    public void onFailure(HttpContext context, Throwable error) {
+        // TODO failure callback handler
+    }
+});
+
+```
+
+
+### <a name="get_all_accounts_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.AccountsController.getAllAccountsAsync") getAllAccountsAsync
+
+> Gets all accounts under the platform
+
+
+```java
+void getAllAccountsAsync(final APICallBack<List<AccountModel>> callBack)
+```
+
+#### Example Usage
+
+```java
+// Invoking the API call with sample inputs
+accounts.getAllAccountsAsync(new APICallBack<List<AccountModel>>() {
+    public void onSuccess(HttpContext context, List<AccountModel> response) {
         // TODO success callback handler
     }
     public void onFailure(HttpContext context, Throwable error) {
@@ -234,21 +225,68 @@ try {
 ```
 
 
-### <a name="get_all_accounts_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.AccountsController.getAllAccountsAsync") getAllAccountsAsync
+### <a name="get_accounts_by_customer_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.AccountsController.getAccountsByCustomerAsync") getAccountsByCustomerAsync
 
-> Gets all accounts under the platform
+> Gets a list of accounts for a given customer
 
 
 ```java
-void getAllAccountsAsync(final APICallBack<List<AccountModel>> callBack)
+void getAccountsByCustomerAsync(
+        final String customerIdentifier,
+        final APICallBack<List<AccountSummaryModel>> callBack)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| customerIdentifier |  ``` Required ```  | Customer Identifier |
+
+
+#### Example Usage
+
+```java
+String customerIdentifier = "customerIdentifier";
+// Invoking the API call with sample inputs
+accounts.getAccountsByCustomerAsync(customerIdentifier, new APICallBack<List<AccountSummaryModel>>() {
+    public void onSuccess(HttpContext context, List<AccountSummaryModel> response) {
+        // TODO success callback handler
+    }
+    public void onFailure(HttpContext context, Throwable error) {
+        // TODO failure callback handler
+    }
+});
+
+```
+
+
+[Back to List of Controllers](#list_of_controllers)
+
+## <a name="catalog_controller"></a>![Class: ](https://apidocs.io/img/class.png "com.tangocard.raas.controllers.CatalogController") CatalogController
+
+### Get singleton instance
+
+The singleton instance of the ``` CatalogController ``` class can be accessed from the API Client.
+
+```java
+CatalogController catalog = client.getCatalog();
+```
+
+### <a name="get_catalog_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.CatalogController.getCatalogAsync") getCatalogAsync
+
+> Get Catalog
+
+
+```java
+void getCatalogAsync(final APICallBack<CatalogModel> callBack)
 ```
 
 #### Example Usage
 
 ```java
 // Invoking the API call with sample inputs
-accounts.getAllAccountsAsync(new APICallBack<List<AccountModel>>() {
-    public void onSuccess(HttpContext context, List<AccountModel> response) {
+catalog.getCatalogAsync(new APICallBack<CatalogModel>() {
+    public void onSuccess(HttpContext context, CatalogModel response) {
         // TODO success callback handler
     }
     public void onFailure(HttpContext context, Throwable error) {
@@ -270,6 +308,41 @@ The singleton instance of the ``` OrdersController ``` class can be accessed fro
 ```java
 OrdersController orders = client.getOrders();
 ```
+
+### <a name="get_order_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.OrdersController.getOrderAsync") getOrderAsync
+
+> TODO: Add a method description
+
+
+```java
+void getOrderAsync(
+        final String referenceOrderID,
+        final APICallBack<OrderModel> callBack)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| referenceOrderID |  ``` Required ```  | Reference Order ID |
+
+
+#### Example Usage
+
+```java
+String referenceOrderID = "referenceOrderID";
+// Invoking the API call with sample inputs
+orders.getOrderAsync(referenceOrderID, new APICallBack<OrderModel>() {
+    public void onSuccess(HttpContext context, OrderModel response) {
+        // TODO success callback handler
+    }
+    public void onFailure(HttpContext context, Throwable error) {
+        // TODO failure callback handler
+    }
+});
+
+```
+
 
 ### <a name="create_order_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.OrdersController.createOrderAsync") createOrderAsync
 
@@ -307,76 +380,6 @@ try {
     // TODO Auto-generated catch block
     e.printStackTrace();
 }
-```
-
-
-### <a name="get_order_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.OrdersController.getOrderAsync") getOrderAsync
-
-> TODO: Add a method description
-
-
-```java
-void getOrderAsync(
-        final String referenceOrderID,
-        final APICallBack<OrderModel> callBack)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| referenceOrderID |  ``` Required ```  | Reference Order ID |
-
-
-#### Example Usage
-
-```java
-String referenceOrderID = "referenceOrderID";
-// Invoking the API call with sample inputs
-orders.getOrderAsync(referenceOrderID, new APICallBack<OrderModel>() {
-    public void onSuccess(HttpContext context, OrderModel response) {
-        // TODO success callback handler
-    }
-    public void onFailure(HttpContext context, Throwable error) {
-        // TODO failure callback handler
-    }
-});
-
-```
-
-
-### <a name="create_resend_order_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.OrdersController.createResendOrderAsync") createResendOrderAsync
-
-> TODO: Add a method description
-
-
-```java
-void createResendOrderAsync(
-        final String referenceOrderID,
-        final APICallBack<ResendOrderResponseModel> callBack)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| referenceOrderID |  ``` Required ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```java
-String referenceOrderID = "referenceOrderID";
-// Invoking the API call with sample inputs
-orders.createResendOrderAsync(referenceOrderID, new APICallBack<ResendOrderResponseModel>() {
-    public void onSuccess(HttpContext context, ResendOrderResponseModel response) {
-        // TODO success callback handler
-    }
-    public void onFailure(HttpContext context, Throwable error) {
-        // TODO failure callback handler
-    }
-});
-
 ```
 
 
@@ -424,10 +427,10 @@ collect.setStartDate(startDate);
 Date endDate = new Date();
 collect.setEndDate(endDate);
 
-Integer elementsPerBlock = 106;
+Integer elementsPerBlock = 9;
 collect.setElementsPerBlock(elementsPerBlock);
 
-Integer page = 106;
+Integer page = 9;
 collect.setPage(page);
 
 // Invoking the API call with sample inputs
@@ -444,109 +447,31 @@ orders.getOrdersAsync(collect, new APICallBack<GetOrdersResponseModel>() {
 ```
 
 
-[Back to List of Controllers](#list_of_controllers)
+### <a name="create_resend_order_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.OrdersController.createResendOrderAsync") createResendOrderAsync
 
-## <a name="catalog_controller"></a>![Class: ](https://apidocs.io/img/class.png "com.tangocard.raas.controllers.CatalogController") CatalogController
-
-### Get singleton instance
-
-The singleton instance of the ``` CatalogController ``` class can be accessed from the API Client.
-
-```java
-CatalogController catalog = client.getCatalog();
-```
-
-### <a name="get_catalog_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.CatalogController.getCatalogAsync") getCatalogAsync
-
-> Get Catalog
+> TODO: Add a method description
 
 
 ```java
-void getCatalogAsync(final APICallBack<CatalogModel> callBack)
+void createResendOrderAsync(
+        final String referenceOrderID,
+        final APICallBack<ResendOrderResponseModel> callBack)
 ```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| referenceOrderID |  ``` Required ```  | TODO: Add a parameter description |
+
 
 #### Example Usage
 
 ```java
+String referenceOrderID = "referenceOrderID";
 // Invoking the API call with sample inputs
-catalog.getCatalogAsync(new APICallBack<CatalogModel>() {
-    public void onSuccess(HttpContext context, CatalogModel response) {
-        // TODO success callback handler
-    }
-    public void onFailure(HttpContext context, Throwable error) {
-        // TODO failure callback handler
-    }
-});
-
-```
-
-
-[Back to List of Controllers](#list_of_controllers)
-
-## <a name="exchange_rates_controller"></a>![Class: ](https://apidocs.io/img/class.png "com.tangocard.raas.controllers.ExchangeRatesController") ExchangeRatesController
-
-### Get singleton instance
-
-The singleton instance of the ``` ExchangeRatesController ``` class can be accessed from the API Client.
-
-```java
-ExchangeRatesController exchangeRates = client.getExchangeRates();
-```
-
-### <a name="get_exchange_rates_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.ExchangeRatesController.getExchangeRatesAsync") getExchangeRatesAsync
-
-> Retrieve current exchange rates
-
-
-```java
-void getExchangeRatesAsync(final APICallBack<Object> callBack)
-```
-
-#### Example Usage
-
-```java
-// Invoking the API call with sample inputs
-exchangeRates.getExchangeRatesAsync(new APICallBack<void>() {
-    public void onSuccess(HttpContext context, void response) {
-        // TODO success callback handler
-    }
-    public void onFailure(HttpContext context, Throwable error) {
-        // TODO failure callback handler
-    }
-});
-
-```
-
-
-[Back to List of Controllers](#list_of_controllers)
-
-## <a name="status_controller"></a>![Class: ](https://apidocs.io/img/class.png "com.tangocard.raas.controllers.StatusController") StatusController
-
-### Get singleton instance
-
-The singleton instance of the ``` StatusController ``` class can be accessed from the API Client.
-
-```java
-StatusController status = client.getStatus();
-```
-
-### <a name="get_system_status_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.StatusController.getSystemStatusAsync") getSystemStatusAsync
-
-> *Tags:*  ``` Skips Authentication ``` 
-
-> Retrieve system status
-
-
-```java
-void getSystemStatusAsync(final APICallBack<SystemStatusResponseModel> callBack)
-```
-
-#### Example Usage
-
-```java
-// Invoking the API call with sample inputs
-status.getSystemStatusAsync(new APICallBack<SystemStatusResponseModel>() {
-    public void onSuccess(HttpContext context, SystemStatusResponseModel response) {
+orders.createResendOrderAsync(referenceOrderID, new APICallBack<ResendOrderResponseModel>() {
+    public void onSuccess(HttpContext context, ResendOrderResponseModel response) {
         // TODO success callback handler
     }
     public void onFailure(HttpContext context, Throwable error) {
@@ -658,6 +583,306 @@ void getAllCustomersAsync(final APICallBack<List<CustomerModel>> callBack)
 // Invoking the API call with sample inputs
 customers.getAllCustomersAsync(new APICallBack<List<CustomerModel>>() {
     public void onSuccess(HttpContext context, List<CustomerModel> response) {
+        // TODO success callback handler
+    }
+    public void onFailure(HttpContext context, Throwable error) {
+        // TODO failure callback handler
+    }
+});
+
+```
+
+
+[Back to List of Controllers](#list_of_controllers)
+
+## <a name="exchange_rates_controller"></a>![Class: ](https://apidocs.io/img/class.png "com.tangocard.raas.controllers.ExchangeRatesController") ExchangeRatesController
+
+### Get singleton instance
+
+The singleton instance of the ``` ExchangeRatesController ``` class can be accessed from the API Client.
+
+```java
+ExchangeRatesController exchangeRates = client.getExchangeRates();
+```
+
+### <a name="get_exchange_rates_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.ExchangeRatesController.getExchangeRatesAsync") getExchangeRatesAsync
+
+> Retrieve current exchange rates
+
+
+```java
+void getExchangeRatesAsync(final APICallBack<ExchangeRateResponseModel> callBack)
+```
+
+#### Example Usage
+
+```java
+// Invoking the API call with sample inputs
+exchangeRates.getExchangeRatesAsync(new APICallBack<ExchangeRateResponseModel>() {
+    public void onSuccess(HttpContext context, ExchangeRateResponseModel response) {
+        // TODO success callback handler
+    }
+    public void onFailure(HttpContext context, Throwable error) {
+        // TODO failure callback handler
+    }
+});
+
+```
+
+
+[Back to List of Controllers](#list_of_controllers)
+
+## <a name="status_controller"></a>![Class: ](https://apidocs.io/img/class.png "com.tangocard.raas.controllers.StatusController") StatusController
+
+### Get singleton instance
+
+The singleton instance of the ``` StatusController ``` class can be accessed from the API Client.
+
+```java
+StatusController status = client.getStatus();
+```
+
+### <a name="get_system_status_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.StatusController.getSystemStatusAsync") getSystemStatusAsync
+
+> *Tags:*  ``` Skips Authentication ``` 
+
+> Retrieve system status
+
+
+```java
+void getSystemStatusAsync(final APICallBack<SystemStatusResponseModel> callBack)
+```
+
+#### Example Usage
+
+```java
+// Invoking the API call with sample inputs
+status.getSystemStatusAsync(new APICallBack<SystemStatusResponseModel>() {
+    public void onSuccess(HttpContext context, SystemStatusResponseModel response) {
+        // TODO success callback handler
+    }
+    public void onFailure(HttpContext context, Throwable error) {
+        // TODO failure callback handler
+    }
+});
+
+```
+
+
+[Back to List of Controllers](#list_of_controllers)
+
+## <a name="fund_controller"></a>![Class: ](https://apidocs.io/img/class.png "com.tangocard.raas.controllers.FundController") FundController
+
+### Get singleton instance
+
+The singleton instance of the ``` FundController ``` class can be accessed from the API Client.
+
+```java
+FundController fund = client.getFund();
+```
+
+### <a name="get_credit_cards_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.FundController.getCreditCardsAsync") getCreditCardsAsync
+
+> List all credit cards registered on this platform
+
+
+```java
+void getCreditCardsAsync(final APICallBack<List<CreditCardModel>> callBack)
+```
+
+#### Example Usage
+
+```java
+// Invoking the API call with sample inputs
+fund.getCreditCardsAsync(new APICallBack<List<CreditCardModel>>() {
+    public void onSuccess(HttpContext context, List<CreditCardModel> response) {
+        // TODO success callback handler
+    }
+    public void onFailure(HttpContext context, Throwable error) {
+        // TODO failure callback handler
+    }
+});
+
+```
+
+
+### <a name="create_credit_card_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.FundController.createCreditCardAsync") createCreditCardAsync
+
+> Register a new credit card
+
+
+```java
+void createCreditCardAsync(
+        final CreateCreditCardRequestModel body,
+        final APICallBack<CreditCardModel> callBack)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| body |  ``` Required ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```java
+try {
+    CreateCreditCardRequestModel body = new CreateCreditCardRequestModel();
+    // Invoking the API call with sample inputs
+    fund.createCreditCardAsync(body, new APICallBack<CreditCardModel>() {
+        public void onSuccess(HttpContext context, CreditCardModel response) {
+            // TODO success callback handler
+        }
+        public void onFailure(HttpContext context, Throwable error) {
+            // TODO failure callback handler
+        }
+    });
+} catch(JsonProcessingException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+}
+```
+
+
+### <a name="create_unregister_credit_card_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.FundController.createUnregisterCreditCardAsync") createUnregisterCreditCardAsync
+
+> Unregister a credit card
+
+
+```java
+void createUnregisterCreditCardAsync(
+        final UnregisterCreditCardRequestModel body,
+        final APICallBack<UnregisterCreditCardResponseModel> callBack)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| body |  ``` Required ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```java
+try {
+    UnregisterCreditCardRequestModel body = new UnregisterCreditCardRequestModel();
+    // Invoking the API call with sample inputs
+    fund.createUnregisterCreditCardAsync(body, new APICallBack<UnregisterCreditCardResponseModel>() {
+        public void onSuccess(HttpContext context, UnregisterCreditCardResponseModel response) {
+            // TODO success callback handler
+        }
+        public void onFailure(HttpContext context, Throwable error) {
+            // TODO failure callback handler
+        }
+    });
+} catch(JsonProcessingException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+}
+```
+
+
+### <a name="create_deposit_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.FundController.createDepositAsync") createDepositAsync
+
+> Fund an account
+
+
+```java
+void createDepositAsync(
+        final DepositRequestModel body,
+        final APICallBack<DepositResponseModel> callBack)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| body |  ``` Required ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```java
+try {
+    DepositRequestModel body = new DepositRequestModel();
+    // Invoking the API call with sample inputs
+    fund.createDepositAsync(body, new APICallBack<DepositResponseModel>() {
+        public void onSuccess(HttpContext context, DepositResponseModel response) {
+            // TODO success callback handler
+        }
+        public void onFailure(HttpContext context, Throwable error) {
+            // TODO failure callback handler
+        }
+    });
+} catch(JsonProcessingException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+}
+```
+
+
+### <a name="get_deposit_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.FundController.getDepositAsync") getDepositAsync
+
+> Get details for a specific credit card deposit
+
+
+```java
+void getDepositAsync(
+        final String depositId,
+        final APICallBack<GetDepositResponseModel> callBack)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| depositId |  ``` Required ```  | Deposit ID |
+
+
+#### Example Usage
+
+```java
+String depositId = "depositId";
+// Invoking the API call with sample inputs
+fund.getDepositAsync(depositId, new APICallBack<GetDepositResponseModel>() {
+    public void onSuccess(HttpContext context, GetDepositResponseModel response) {
+        // TODO success callback handler
+    }
+    public void onFailure(HttpContext context, Throwable error) {
+        // TODO failure callback handler
+    }
+});
+
+```
+
+
+### <a name="get_credit_card_async"></a>![Method: ](https://apidocs.io/img/method.png "com.tangocard.raas.controllers.FundController.getCreditCardAsync") getCreditCardAsync
+
+> Get details for a specific credit card
+
+
+```java
+void getCreditCardAsync(
+        final String token,
+        final APICallBack<CreditCardModel> callBack)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| token |  ``` Required ```  | Card Token |
+
+
+#### Example Usage
+
+```java
+String token = "token";
+// Invoking the API call with sample inputs
+fund.getCreditCardAsync(token, new APICallBack<CreditCardModel>() {
+    public void onSuccess(HttpContext context, CreditCardModel response) {
         // TODO success callback handler
     }
     public void onFailure(HttpContext context, Throwable error) {

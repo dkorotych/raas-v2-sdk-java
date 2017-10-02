@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class CreateAccountRequestModel 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 4728128488534361794L;
+    private static final long serialVersionUID = 5322555794194962379L;
     private String accountIdentifier;
     private String displayName;
     private String contactEmail;

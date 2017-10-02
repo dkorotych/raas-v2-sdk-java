@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class ExchangeRateResponseModel 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5764268457676933040L;
+    private static final long serialVersionUID = 5400560480198642327L;
     private String disclaimer;
     private List<ExchangeRateModel> exchangeRates;
     /** GETTER

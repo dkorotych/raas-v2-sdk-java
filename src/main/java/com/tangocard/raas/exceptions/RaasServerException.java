@@ -14,7 +14,7 @@ import com.tangocard.raas.models.*;
 public class RaasServerException 
         extends APIException
         implements java.io.Serializable {
-    private static final long serialVersionUID = 4807306925596893951L;
+    private static final long serialVersionUID = 5704525641880612519L;
     private Date timestamp;
     private String requestId;
     private String path;

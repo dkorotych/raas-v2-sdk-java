@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class ExchangeRateModel 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5547612337551964879L;
+    private static final long serialVersionUID = 5090029554716984460L;
     private Date lastModifiedDate;
     private String rewardCurrency;
     private String baseCurrency;

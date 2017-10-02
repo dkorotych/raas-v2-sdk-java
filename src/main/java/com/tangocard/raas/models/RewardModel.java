@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class RewardModel 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 4922426715931799228L;
+    private static final long serialVersionUID = 5405586413138227988L;
     private LinkedHashMap<String, String> credentials;
     private List<RewardCredentialModel> credentialList;
     private String redemptionInstructions;

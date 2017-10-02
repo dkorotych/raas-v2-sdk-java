@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class RaasServerErrorModel 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5116429928608856841L;
+    private static final long serialVersionUID = 5269632328890101450L;
     private String message;
     private int code;
     /** GETTER
