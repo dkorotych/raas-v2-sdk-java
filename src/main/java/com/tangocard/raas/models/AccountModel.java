@@ -8,8 +8,10 @@ package com.tangocard.raas.models;
 import java.util.*;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import lombok.EqualsAndHashCode;
 
-public class AccountModel 
+@EqualsAndHashCode
+public class AccountModel
         implements java.io.Serializable {
     private static final long serialVersionUID = 4614541385856106818L;
     private String accountIdentifier;
