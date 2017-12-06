@@ -13,6 +13,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URLEncoder;
 
+import java.text.ParseException;
+import java.text.ParsePosition;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -75,9 +77,8 @@ public class APIHelper {
      * @param date	ISO8601 encodede date string
      * @return Parsed Date object 
      */
-    public static Date parseDate(String date)
-    {
-        return com.fasterxml.jackson.databind.util.ISO8601Utils.parse(date);
+    public static Date parseDate(String date) throws ParseException {
+        return com.fasterxml.jackson.databind.util.ISO8601Utils.parse(date, new ParsePosition(0));
     }
     
     /**
