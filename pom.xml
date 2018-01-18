@@ -9,11 +9,17 @@
 
     <groupId>com.tangocard.raas</groupId>
     <artifactId>tangocard-api-client</artifactId>
-    <version>2.0</version>
+    <version>2.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>TangoCard Api Client</name>
     <url>https://developers.tangocard.com/docs/getting-started</url>
+
+    <scm>
+        <connection>scm:git:git://github.com/dkorotych/raas-v2-sdk-java.git</connection>
+        <developerConnection>scm:git:git@github.com:dkorotych/raas-v2-sdk-java.git</developerConnection>
+        <url>https://github.com/dkorotych/raas-v2-sdk-java.git</url>
+    </scm>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -119,6 +125,16 @@
                         <phase>deploy</phase>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <preparationGoals>clean install</preparationGoals>
+                    <goals>deploy</goals>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
             </plugin>
         </plugins>
     </build>
