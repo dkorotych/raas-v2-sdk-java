@@ -9,8 +9,10 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @EqualsAndHashCode
+@ToString
 public class ExchangeRateResponseModel 
         implements java.io.Serializable {
     private static final long serialVersionUID = 5764268457676933040L;

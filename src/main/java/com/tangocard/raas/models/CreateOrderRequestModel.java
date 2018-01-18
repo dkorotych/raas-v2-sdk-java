@@ -9,8 +9,10 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @EqualsAndHashCode
+@ToString
 public class CreateOrderRequestModel 
         implements java.io.Serializable {
     private static final long serialVersionUID = 5134646535331171534L;

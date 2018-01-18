@@ -9,8 +9,10 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @EqualsAndHashCode
+@ToString
 public class AccountSummaryModel 
         implements java.io.Serializable {
     private static final long serialVersionUID = 5649636036162677496L;
