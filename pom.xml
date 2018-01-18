@@ -16,8 +16,8 @@
     <url>https://developers.tangocard.com/docs/getting-started</url>
 
     <scm>
-        <connection>scm:git:git://github.com/dkorotych/raas-v2-sdk-java.git</connection>
-        <developerConnection>scm:git:git@github.com:dkorotych/raas-v2-sdk-java.git</developerConnection>
+        <connection>scm:git:https://github.com/dkorotych/raas-v2-sdk-java.git</connection>
+        <developerConnection>scm:git:https://github.com/dkorotych/raas-v2-sdk-java.git</developerConnection>
         <url>https://github.com/dkorotych/raas-v2-sdk-java.git</url>
     </scm>
 
@@ -131,6 +131,8 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.3</version>
                 <configuration>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <releaseProfiles>releases</releaseProfiles>
                     <preparationGoals>clean install</preparationGoals>
                     <goals>deploy</goals>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
