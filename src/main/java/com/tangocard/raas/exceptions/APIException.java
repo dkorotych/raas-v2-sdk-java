@@ -6,7 +6,7 @@
 package com.tangocard.raas.exceptions;
 
 import java.io.IOException;
-import java.io.InputStream;
+
 import com.tangocard.raas.APIHelper;
 import com.tangocard.raas.http.client.HttpContext;
 import com.tangocard.raas.http.response.HttpStringResponse;

@@ -7,14 +7,13 @@ package com.tangocard.raas.controllers;
 
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.*;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import com.tangocard.raas.*;
 import com.tangocard.raas.models.*;
 import com.tangocard.raas.exceptions.*;
-import com.tangocard.raas.http.client.HttpClient;
 import com.tangocard.raas.http.client.HttpContext;
 import com.tangocard.raas.http.request.HttpRequest;
 import com.tangocard.raas.http.response.HttpResponse;

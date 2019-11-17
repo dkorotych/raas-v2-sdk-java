@@ -6,7 +6,6 @@
 package com.tangocard.raas.http.client;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mashape.unirest.http.options.*;
 import com.mashape.unirest.http.Unirest;
 
 import com.tangocard.raas.http.client.HttpContext;
@@ -17,7 +16,6 @@ import com.tangocard.raas.http.response.HttpResponse;
 import com.tangocard.raas.http.response.HttpStringResponse;
 import com.tangocard.raas.exceptions.APIException;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.Map;
 

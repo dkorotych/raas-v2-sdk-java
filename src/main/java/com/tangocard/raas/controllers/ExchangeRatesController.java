@@ -5,18 +5,13 @@
  */
 package com.tangocard.raas.controllers;
 
-import java.io.*;
 import java.util.*;
-import java.util.concurrent.*;
 
 import com.tangocard.raas.*;
-import com.tangocard.raas.models.*;
 import com.tangocard.raas.exceptions.*;
-import com.tangocard.raas.http.client.HttpClient;
 import com.tangocard.raas.http.client.HttpContext;
 import com.tangocard.raas.http.request.HttpRequest;
 import com.tangocard.raas.http.response.HttpResponse;
-import com.tangocard.raas.http.response.HttpStringResponse;
 import com.tangocard.raas.http.client.APICallBack;
 import com.tangocard.raas.controllers.syncwrapper.APICallBackCatcher;
 

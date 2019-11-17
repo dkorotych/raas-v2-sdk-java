@@ -5,8 +5,6 @@
  */
 package com.tangocard.raas.models;
 
-import java.util.*;
-
 public class SystemStatusResponseModelBuilder {
     //the instance to build
     private SystemStatusResponseModel systemStatusResponseModel;

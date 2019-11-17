@@ -9,8 +9,6 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.tangocard.raas.models.*;
-
 public class Configuration {
     //RaaS v2 API Platform Name
     //TODO: Replace the platformName with an appropriate value

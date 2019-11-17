@@ -5,8 +5,6 @@
  */
 package com.tangocard.raas.models;
 
-import java.util.*;
-
 public class CreateAccountRequestModelBuilder {
     //the instance to build
     private CreateAccountRequestModel createAccountRequestModel;

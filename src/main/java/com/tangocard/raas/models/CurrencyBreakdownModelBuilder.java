@@ -5,8 +5,6 @@
  */
 package com.tangocard.raas.models;
 
-import java.util.*;
-
 public class CurrencyBreakdownModelBuilder {
     //the instance to build
     private CurrencyBreakdownModel currencyBreakdownModel;

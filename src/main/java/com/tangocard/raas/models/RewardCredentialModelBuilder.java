@@ -5,8 +5,6 @@
  */
 package com.tangocard.raas.models;
 
-import java.util.*;
-
 public class RewardCredentialModelBuilder {
     //the instance to build
     private RewardCredentialModel rewardCredentialModel;
