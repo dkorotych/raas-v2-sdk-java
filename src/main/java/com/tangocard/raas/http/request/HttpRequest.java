@@ -63,13 +63,12 @@ public class HttpRequest {
     }
 
     /**
-     * Initializes a simple http request
+     * Initializes a simple http request. Http request initialized with the given method, url and headers
      *
      * @param _method     The HTTP method to use. Can be GET, HEAD, PUT, POST, DELETE and PATCH
      * @param _queryUrl   The http url to create the HTTP Request. Expect a fully qualified absolute Url
      * @param _headers    The key-value map of all http headers to be sent
      * @param _parameters The form data values in a key-value map
-     * @return Http request initialized with the given method, url and headers
      */
     public HttpRequest(HttpMethod _method, String _queryUrl,
                        Map<String, String> _headers, Map<String, Object> _parameters) {
@@ -80,7 +79,7 @@ public class HttpRequest {
     }
 
     /**
-     * Initializes a simple http request
+     * Initializes a simple http request. Http request initialized with the given method, url and headers
      *
      * @param _method     The HTTP method to use. Can be GET, HEAD, PUT, POST, DELETE and PATCH
      * @param _queryUrl   The http url to create the HTTP Request. Expect a fully qualified absolute Url
@@ -88,7 +87,6 @@ public class HttpRequest {
      * @param _parameters The form data values in a key-value map
      * @param _username   Username for basic authentication
      * @param _password   Password for basic authentication
-     * @return Http request initialized with the given method, url and headers
      */
     public HttpRequest(HttpMethod _method, String _queryUrl,
                        Map<String, String> _headers, Map<String, Object> _parameters,

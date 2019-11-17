@@ -16,7 +16,7 @@ public enum Environments {
     GAMMA, //Tango Card Internal Use Only
     LOCAL; //Tango Card Internal Use Only
 
-    private static TreeMap<String, Environments> valueMap = new TreeMap<String, Environments>();
+    private static TreeMap<String, Environments> valueMap = new TreeMap<>();
     private String value;
 
     static {
@@ -54,7 +54,7 @@ public enum Environments {
      */
     @Override
     public String toString() {
-        return value.toString();
+        return value;
     }
 
     /**
@@ -64,7 +64,7 @@ public enum Environments {
     public static List<String> toValue(List<Environments> toConvert) {
         if(toConvert == null)
             return null;
-        List<String> convertedValues = new ArrayList<String>();
+        List<String> convertedValues = new ArrayList<>();
         for (Environments enumValue : toConvert) {
             convertedValues.add(enumValue.value);
         }

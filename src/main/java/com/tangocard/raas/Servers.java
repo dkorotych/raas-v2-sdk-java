@@ -12,7 +12,7 @@ import java.util.TreeMap;
 public enum Servers {
     DEFAULT; //TODO: Write general description for this element
 
-    private static TreeMap<String, Servers> valueMap = new TreeMap<String, Servers>();
+    private static TreeMap<String, Servers> valueMap = new TreeMap<>();
     private String value;
 
     static {
@@ -42,7 +42,7 @@ public enum Servers {
      */
     @Override
     public String toString() {
-        return value.toString();
+        return value;
     }
 
     /**
@@ -52,7 +52,7 @@ public enum Servers {
     public static List<String> toValue(List<Servers> toConvert) {
         if(toConvert == null)
             return null;
-        List<String> convertedValues = new ArrayList<String>();
+        List<String> convertedValues = new ArrayList<>();
         for (Servers enumValue : toConvert) {
             convertedValues.add(enumValue.value);
         }

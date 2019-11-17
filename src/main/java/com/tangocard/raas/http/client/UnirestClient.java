@@ -23,7 +23,7 @@ public class UnirestClient implements HttpClient {
     /**
      * Private variables to implement singleton pattern
      */
-    private static Object synRoot = new Object();
+    private static final Object synRoot = new Object();
     private static HttpClient sharedInstance = null;
 
     /**
@@ -113,7 +113,7 @@ public class UnirestClient implements HttpClient {
     /**
      * Publishes success or failure result as HttpResponse from a HttpRequest
      * @param   response    The http response to publish
-     * @param   context     The user specified context object
+     * @param   request     The user specified context object
      * @param   completionBlock     The success and failure code block reference to invoke the delegate
      * @param   uniException       The reported errors for getting the http response
      */
@@ -142,7 +142,7 @@ public class UnirestClient implements HttpClient {
      */
     public static HttpResponse convertResponse(com.mashape.unirest.http.HttpResponse<?> response)
     {
-        HttpResponse httpResponse = null;
+        HttpResponse httpResponse;
 
         if(null == response)
         {
@@ -180,7 +180,7 @@ public class UnirestClient implements HttpClient {
         if(request instanceof HttpBodyRequest)
         {
             //set request body
-            ((com.mashape.unirest.request.HttpRequestWithBody)uniRequest).body(((HttpBodyRequest) request).getBody());
+            uniRequest.body(((HttpBodyRequest) request).getBody());
         }
         else
         {

@@ -54,8 +54,7 @@ public class SynchronousBase {
      * @throws InterruptedException
      */
     public boolean await(long timeout, TimeUnit unit) throws InterruptedException {
-        boolean t = lock.await(timeout, unit);
-        return t;
+        return lock.await(timeout, unit);
     }
     
 }

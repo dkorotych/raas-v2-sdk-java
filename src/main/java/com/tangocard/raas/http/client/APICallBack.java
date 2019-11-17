@@ -16,12 +16,12 @@ public interface APICallBack<T> {
      * @param context   The context of the API request
      * @param response  The response received from the API Call
      */
-    public void onSuccess(HttpContext context, T response);
+    void onSuccess(HttpContext context, T response);
 
     /**
      * On Completed callback for API calls
      * @param context   The context of the API request
      * @param error Any error detected during the API Call and/or deserialization
      */
-    public void onFailure(HttpContext context, Throwable error);
+    void onFailure(HttpContext context, Throwable error);
 }

@@ -17,7 +17,7 @@ public abstract class BaseController {
      * Private variable to keep shared reference of client instance
      */
     private static HttpClient clientInstance = null;
-    private static Object syncObject = new Object();
+    private static final Object syncObject = new Object();
 
     /**
      * Protected variable to keep reference of httpCallBack instance if user provides any

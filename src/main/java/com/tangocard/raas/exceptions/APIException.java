@@ -61,6 +61,6 @@ public class APIException extends Exception {
         try {            
             String response_body = ((HttpStringResponse)context.getResponse()).getBody();
             APIHelper.populate(response_body, this);
-        } catch (IOException ioException) { }
+        } catch (IOException ignored) { }
     }
 }

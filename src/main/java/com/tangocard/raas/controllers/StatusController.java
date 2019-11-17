@@ -12,7 +12,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import com.tangocard.raas.*;
 import com.tangocard.raas.models.*;
-import com.tangocard.raas.exceptions.*;
 import com.tangocard.raas.http.client.HttpContext;
 import com.tangocard.raas.http.request.HttpRequest;
 import com.tangocard.raas.http.response.HttpResponse;
@@ -22,7 +21,7 @@ import com.tangocard.raas.controllers.syncwrapper.APICallBackCatcher;
 
 public class StatusController extends BaseController {    
     //private static variables for the singleton pattern
-    private static Object syncObject = new Object();
+    private static final Object syncObject = new Object();
     private static StatusController instance = null;
 
     /**
@@ -44,7 +43,7 @@ public class StatusController extends BaseController {
      */
     public SystemStatusResponseModel getSystemStatus(
     ) throws Throwable {
-        APICallBackCatcher<SystemStatusResponseModel> callback = new APICallBackCatcher<SystemStatusResponseModel>();
+        APICallBackCatcher<SystemStatusResponseModel> callback = new APICallBackCatcher<>();
         getSystemStatusAsync(callback);
         if(!callback.isSuccess())
             throw callback.getError();
@@ -52,8 +51,7 @@ public class StatusController extends BaseController {
     }
 
     /**
-     * Retrieve system status
-     * @return    Returns the void response from the API call 
+     * Retrieve system status. Returns the void response from the API call
      */
     public void getSystemStatusAsync(
                 final APICallBack<SystemStatusResponseModel> callBack
@@ -86,52 +84,46 @@ public class StatusController extends BaseController {
         }
 
         //invoke request and get response
-        Runnable _responseTask = new Runnable() {
-            public void run() {
-                //make the API call
-                getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
-                    public void onSuccess(HttpContext _context, HttpResponse _response) {
-                        try {
+        Runnable _responseTask = () -> {
+            //make the API call
+            getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
+                public void onSuccess(HttpContext _context, HttpResponse _response) {
+                    try {
 
-                            //invoke the callback after response if its not null
-                            if (getHttpCallBack() != null)	
-                            {
-                                getHttpCallBack().OnAfterResponse(_context);
-                            }
-
-                            //handle errors defined at the API level
-                            validateResponse(_response, _context);
-
-                            //extract result from the http response
-                            String _responseBody = ((HttpStringResponse)_response).getBody();
-                            SystemStatusResponseModel _result = APIHelper.deserialize(_responseBody,
-                                                        new TypeReference<SystemStatusResponseModel>(){});
-
-                            //let the caller know of the success
-                            callBack.onSuccess(_context, _result);
-                        } catch (APIException error) {
-                            //let the caller know of the error
-                            callBack.onFailure(_context, error);
-                        } catch (IOException ioException) {
-                            //let the caller know of the caught IO Exception
-                            callBack.onFailure(_context, ioException);
-                        } catch (Exception exception) {
-                            //let the caller know of the caught Exception
-                            callBack.onFailure(_context, exception);
-                        }
-                    }
-                    public void onFailure(HttpContext _context, Throwable _error) {
                         //invoke the callback after response if its not null
-                        if (getHttpCallBack() != null)	
-                            {
+                        if (getHttpCallBack() != null)
+                        {
                             getHttpCallBack().OnAfterResponse(_context);
                         }
 
-                        //let the caller know of the failure
-                        callBack.onFailure(_context, _error);
+                        //handle errors defined at the API level
+                        validateResponse(_response, _context);
+
+                        //extract result from the http response
+                        String _responseBody = ((HttpStringResponse)_response).getBody();
+                        SystemStatusResponseModel _result = APIHelper.deserialize(_responseBody,
+                                                    new TypeReference<SystemStatusResponseModel>(){});
+
+                        //let the caller know of the success
+                        callBack.onSuccess(_context, _result);
+                    } catch (Exception ioException) {
+                        //let the caller know of the caught IO Exception
+                        callBack.onFailure(_context, ioException);
+                    }//let the caller know of the error
+//let the caller know of the caught Exception
+
+                }
+                public void onFailure(HttpContext _context, Throwable _error) {
+                    //invoke the callback after response if its not null
+                    if (getHttpCallBack() != null)
+                        {
+                        getHttpCallBack().OnAfterResponse(_context);
                     }
-                });
-            }
+
+                    //let the caller know of the failure
+                    callBack.onFailure(_context, _error);
+                }
+            });
         };
 
         //execute async using thread pool

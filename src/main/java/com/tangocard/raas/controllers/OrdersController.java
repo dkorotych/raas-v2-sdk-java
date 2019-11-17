@@ -13,7 +13,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import com.tangocard.raas.*;
 import com.tangocard.raas.models.*;
-import com.tangocard.raas.exceptions.*;
 import com.tangocard.raas.http.client.HttpContext;
 import com.tangocard.raas.http.request.HttpRequest;
 import com.tangocard.raas.http.response.HttpResponse;
@@ -23,7 +22,7 @@ import com.tangocard.raas.controllers.syncwrapper.APICallBackCatcher;
 
 public class OrdersController extends BaseController {    
     //private static variables for the singleton pattern
-    private static Object syncObject = new Object();
+    private static final Object syncObject = new Object();
     private static OrdersController instance = null;
 
     /**
@@ -47,7 +46,7 @@ public class OrdersController extends BaseController {
     public OrderModel createOrder(
                 final CreateOrderRequestModel body
     ) throws Throwable {
-        APICallBackCatcher<OrderModel> callback = new APICallBackCatcher<OrderModel>();
+        APICallBackCatcher<OrderModel> callback = new APICallBackCatcher<>();
         createOrderAsync(body, callback);
         if(!callback.isSuccess())
             throw callback.getError();
@@ -55,9 +54,8 @@ public class OrdersController extends BaseController {
     }
 
     /**
-     * TODO: type endpoint description here
+     * Returns the void response from the API call
      * @param    body    Required parameter: Example: 
-     * @return    Returns the void response from the API call 
      */
     public void createOrderAsync(
                 final CreateOrderRequestModel body,
@@ -96,52 +94,46 @@ public class OrdersController extends BaseController {
         }
 
         //invoke request and get response
-        Runnable _responseTask = new Runnable() {
-            public void run() {
-                //make the API call
-                getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
-                    public void onSuccess(HttpContext _context, HttpResponse _response) {
-                        try {
+        Runnable _responseTask = () -> {
+            //make the API call
+            getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
+                public void onSuccess(HttpContext _context, HttpResponse _response) {
+                    try {
 
-                            //invoke the callback after response if its not null
-                            if (getHttpCallBack() != null)	
-                            {
-                                getHttpCallBack().OnAfterResponse(_context);
-                            }
-
-                            //handle errors defined at the API level
-                            validateResponse(_response, _context);
-
-                            //extract result from the http response
-                            String _responseBody = ((HttpStringResponse)_response).getBody();
-                            OrderModel _result = APIHelper.deserialize(_responseBody,
-                                                        new TypeReference<OrderModel>(){});
-
-                            //let the caller know of the success
-                            callBack.onSuccess(_context, _result);
-                        } catch (APIException error) {
-                            //let the caller know of the error
-                            callBack.onFailure(_context, error);
-                        } catch (IOException ioException) {
-                            //let the caller know of the caught IO Exception
-                            callBack.onFailure(_context, ioException);
-                        } catch (Exception exception) {
-                            //let the caller know of the caught Exception
-                            callBack.onFailure(_context, exception);
-                        }
-                    }
-                    public void onFailure(HttpContext _context, Throwable _error) {
                         //invoke the callback after response if its not null
-                        if (getHttpCallBack() != null)	
-                            {
+                        if (getHttpCallBack() != null)
+                        {
                             getHttpCallBack().OnAfterResponse(_context);
                         }
 
-                        //let the caller know of the failure
-                        callBack.onFailure(_context, _error);
+                        //handle errors defined at the API level
+                        validateResponse(_response, _context);
+
+                        //extract result from the http response
+                        String _responseBody = ((HttpStringResponse)_response).getBody();
+                        OrderModel _result = APIHelper.deserialize(_responseBody,
+                                                    new TypeReference<OrderModel>(){});
+
+                        //let the caller know of the success
+                        callBack.onSuccess(_context, _result);
+                    } catch (Exception ioException) {
+                        //let the caller know of the caught IO Exception
+                        callBack.onFailure(_context, ioException);
+                    }//let the caller know of the error
+//let the caller know of the caught Exception
+
+                }
+                public void onFailure(HttpContext _context, Throwable _error) {
+                    //invoke the callback after response if its not null
+                    if (getHttpCallBack() != null)
+                        {
+                        getHttpCallBack().OnAfterResponse(_context);
                     }
-                });
-            }
+
+                    //let the caller know of the failure
+                    callBack.onFailure(_context, _error);
+                }
+            });
         };
 
         //execute async using thread pool
@@ -156,7 +148,7 @@ public class OrdersController extends BaseController {
     public OrderModel getOrder(
                 final String referenceOrderID
     ) throws Throwable {
-        APICallBackCatcher<OrderModel> callback = new APICallBackCatcher<OrderModel>();
+        APICallBackCatcher<OrderModel> callback = new APICallBackCatcher<>();
         getOrderAsync(referenceOrderID, callback);
         if(!callback.isSuccess())
             throw callback.getError();
@@ -164,9 +156,8 @@ public class OrdersController extends BaseController {
     }
 
     /**
-     * TODO: type endpoint description here
+     * Returns the void response from the API call
      * @param    referenceOrderID    Required parameter: Reference Order ID
-     * @return    Returns the void response from the API call 
      */
     public void getOrderAsync(
                 final String referenceOrderID,
@@ -212,52 +203,46 @@ public class OrdersController extends BaseController {
         }
 
         //invoke request and get response
-        Runnable _responseTask = new Runnable() {
-            public void run() {
-                //make the API call
-                getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
-                    public void onSuccess(HttpContext _context, HttpResponse _response) {
-                        try {
+        Runnable _responseTask = () -> {
+            //make the API call
+            getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
+                public void onSuccess(HttpContext _context, HttpResponse _response) {
+                    try {
 
-                            //invoke the callback after response if its not null
-                            if (getHttpCallBack() != null)	
-                            {
-                                getHttpCallBack().OnAfterResponse(_context);
-                            }
-
-                            //handle errors defined at the API level
-                            validateResponse(_response, _context);
-
-                            //extract result from the http response
-                            String _responseBody = ((HttpStringResponse)_response).getBody();
-                            OrderModel _result = APIHelper.deserialize(_responseBody,
-                                                        new TypeReference<OrderModel>(){});
-
-                            //let the caller know of the success
-                            callBack.onSuccess(_context, _result);
-                        } catch (APIException error) {
-                            //let the caller know of the error
-                            callBack.onFailure(_context, error);
-                        } catch (IOException ioException) {
-                            //let the caller know of the caught IO Exception
-                            callBack.onFailure(_context, ioException);
-                        } catch (Exception exception) {
-                            //let the caller know of the caught Exception
-                            callBack.onFailure(_context, exception);
-                        }
-                    }
-                    public void onFailure(HttpContext _context, Throwable _error) {
                         //invoke the callback after response if its not null
-                        if (getHttpCallBack() != null)	
-                            {
+                        if (getHttpCallBack() != null)
+                        {
                             getHttpCallBack().OnAfterResponse(_context);
                         }
 
-                        //let the caller know of the failure
-                        callBack.onFailure(_context, _error);
+                        //handle errors defined at the API level
+                        validateResponse(_response, _context);
+
+                        //extract result from the http response
+                        String _responseBody = ((HttpStringResponse)_response).getBody();
+                        OrderModel _result = APIHelper.deserialize(_responseBody,
+                                                    new TypeReference<OrderModel>(){});
+
+                        //let the caller know of the success
+                        callBack.onSuccess(_context, _result);
+                    } catch (Exception ioException) {
+                        //let the caller know of the caught IO Exception
+                        callBack.onFailure(_context, ioException);
+                    }//let the caller know of the error
+//let the caller know of the caught Exception
+
+                }
+                public void onFailure(HttpContext _context, Throwable _error) {
+                    //invoke the callback after response if its not null
+                    if (getHttpCallBack() != null)
+                        {
+                        getHttpCallBack().OnAfterResponse(_context);
                     }
-                });
-            }
+
+                    //let the caller know of the failure
+                    callBack.onFailure(_context, _error);
+                }
+            });
         };
 
         //execute async using thread pool
@@ -272,7 +257,7 @@ public class OrdersController extends BaseController {
     public ResendOrderResponseModel createResendOrder(
                 final String referenceOrderID
     ) throws Throwable {
-        APICallBackCatcher<ResendOrderResponseModel> callback = new APICallBackCatcher<ResendOrderResponseModel>();
+        APICallBackCatcher<ResendOrderResponseModel> callback = new APICallBackCatcher<>();
         createResendOrderAsync(referenceOrderID, callback);
         if(!callback.isSuccess())
             throw callback.getError();
@@ -280,9 +265,8 @@ public class OrdersController extends BaseController {
     }
 
     /**
-     * TODO: type endpoint description here
+     * Returns the void response from the API call
      * @param    referenceOrderID    Required parameter: Example: 
-     * @return    Returns the void response from the API call 
      */
     public void createResendOrderAsync(
                 final String referenceOrderID,
@@ -328,52 +312,46 @@ public class OrdersController extends BaseController {
         }
 
         //invoke request and get response
-        Runnable _responseTask = new Runnable() {
-            public void run() {
-                //make the API call
-                getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
-                    public void onSuccess(HttpContext _context, HttpResponse _response) {
-                        try {
+        Runnable _responseTask = () -> {
+            //make the API call
+            getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
+                public void onSuccess(HttpContext _context, HttpResponse _response) {
+                    try {
 
-                            //invoke the callback after response if its not null
-                            if (getHttpCallBack() != null)	
-                            {
-                                getHttpCallBack().OnAfterResponse(_context);
-                            }
-
-                            //handle errors defined at the API level
-                            validateResponse(_response, _context);
-
-                            //extract result from the http response
-                            String _responseBody = ((HttpStringResponse)_response).getBody();
-                            ResendOrderResponseModel _result = APIHelper.deserialize(_responseBody,
-                                                        new TypeReference<ResendOrderResponseModel>(){});
-
-                            //let the caller know of the success
-                            callBack.onSuccess(_context, _result);
-                        } catch (APIException error) {
-                            //let the caller know of the error
-                            callBack.onFailure(_context, error);
-                        } catch (IOException ioException) {
-                            //let the caller know of the caught IO Exception
-                            callBack.onFailure(_context, ioException);
-                        } catch (Exception exception) {
-                            //let the caller know of the caught Exception
-                            callBack.onFailure(_context, exception);
-                        }
-                    }
-                    public void onFailure(HttpContext _context, Throwable _error) {
                         //invoke the callback after response if its not null
-                        if (getHttpCallBack() != null)	
-                            {
+                        if (getHttpCallBack() != null)
+                        {
                             getHttpCallBack().OnAfterResponse(_context);
                         }
 
-                        //let the caller know of the failure
-                        callBack.onFailure(_context, _error);
+                        //handle errors defined at the API level
+                        validateResponse(_response, _context);
+
+                        //extract result from the http response
+                        String _responseBody = ((HttpStringResponse)_response).getBody();
+                        ResendOrderResponseModel _result = APIHelper.deserialize(_responseBody,
+                                                    new TypeReference<ResendOrderResponseModel>(){});
+
+                        //let the caller know of the success
+                        callBack.onSuccess(_context, _result);
+                    } catch (Exception ioException) {
+                        //let the caller know of the caught IO Exception
+                        callBack.onFailure(_context, ioException);
+                    }//let the caller know of the error
+//let the caller know of the caught Exception
+
+                }
+                public void onFailure(HttpContext _context, Throwable _error) {
+                    //invoke the callback after response if its not null
+                    if (getHttpCallBack() != null)
+                        {
+                        getHttpCallBack().OnAfterResponse(_context);
                     }
-                });
-            }
+
+                    //let the caller know of the failure
+                    callBack.onFailure(_context, _error);
+                }
+            });
         };
 
         //execute async using thread pool
@@ -382,13 +360,13 @@ public class OrdersController extends BaseController {
 
     /**
      * TODO: type endpoint description here
-     * @param    GetOrdersInput    Object containing request parameters
+     * @param    input    Object containing request parameters
      * @return    Returns the GetOrdersResponseModel response from the API call 
      */
     public GetOrdersResponseModel getOrders(
                 final GetOrdersInput input
     ) throws Throwable {
-        APICallBackCatcher<GetOrdersResponseModel> callback = new APICallBackCatcher<GetOrdersResponseModel>();
+        APICallBackCatcher<GetOrdersResponseModel> callback = new APICallBackCatcher<>();
         getOrdersAsync(input, callback);
         if(!callback.isSuccess())
             throw callback.getError();
@@ -396,9 +374,8 @@ public class OrdersController extends BaseController {
     }
 
     /**
-     * TODO: type endpoint description here
-     * @param    GetOrdersInput    Object containing request parameters
-     * @return    Returns the void response from the API call 
+     * Returns the void response from the API call
+     * @param    input    Object containing request parameters
      */
     public void getOrdersAsync(
                 final GetOrdersInput input,
@@ -446,52 +423,46 @@ public class OrdersController extends BaseController {
         }
 
         //invoke request and get response
-        Runnable _responseTask = new Runnable() {
-            public void run() {
-                //make the API call
-                getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
-                    public void onSuccess(HttpContext _context, HttpResponse _response) {
-                        try {
+        Runnable _responseTask = () -> {
+            //make the API call
+            getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
+                public void onSuccess(HttpContext _context, HttpResponse _response) {
+                    try {
 
-                            //invoke the callback after response if its not null
-                            if (getHttpCallBack() != null)	
-                            {
-                                getHttpCallBack().OnAfterResponse(_context);
-                            }
-
-                            //handle errors defined at the API level
-                            validateResponse(_response, _context);
-
-                            //extract result from the http response
-                            String _responseBody = ((HttpStringResponse)_response).getBody();
-                            GetOrdersResponseModel _result = APIHelper.deserialize(_responseBody,
-                                                        new TypeReference<GetOrdersResponseModel>(){});
-
-                            //let the caller know of the success
-                            callBack.onSuccess(_context, _result);
-                        } catch (APIException error) {
-                            //let the caller know of the error
-                            callBack.onFailure(_context, error);
-                        } catch (IOException ioException) {
-                            //let the caller know of the caught IO Exception
-                            callBack.onFailure(_context, ioException);
-                        } catch (Exception exception) {
-                            //let the caller know of the caught Exception
-                            callBack.onFailure(_context, exception);
-                        }
-                    }
-                    public void onFailure(HttpContext _context, Throwable _error) {
                         //invoke the callback after response if its not null
-                        if (getHttpCallBack() != null)	
-                            {
+                        if (getHttpCallBack() != null)
+                        {
                             getHttpCallBack().OnAfterResponse(_context);
                         }
 
-                        //let the caller know of the failure
-                        callBack.onFailure(_context, _error);
+                        //handle errors defined at the API level
+                        validateResponse(_response, _context);
+
+                        //extract result from the http response
+                        String _responseBody = ((HttpStringResponse)_response).getBody();
+                        GetOrdersResponseModel _result = APIHelper.deserialize(_responseBody,
+                                                    new TypeReference<GetOrdersResponseModel>(){});
+
+                        //let the caller know of the success
+                        callBack.onSuccess(_context, _result);
+                    } catch (Exception ioException) {
+                        //let the caller know of the caught IO Exception
+                        callBack.onFailure(_context, ioException);
+                    }//let the caller know of the error
+//let the caller know of the caught Exception
+
+                }
+                public void onFailure(HttpContext _context, Throwable _error) {
+                    //invoke the callback after response if its not null
+                    if (getHttpCallBack() != null)
+                        {
+                        getHttpCallBack().OnAfterResponse(_context);
                     }
-                });
-            }
+
+                    //let the caller know of the failure
+                    callBack.onFailure(_context, _error);
+                }
+            });
         };
 
         //execute async using thread pool

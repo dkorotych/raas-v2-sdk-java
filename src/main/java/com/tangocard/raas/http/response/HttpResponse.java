@@ -36,10 +36,10 @@ public class HttpResponse {
     }
 
     /**
+     * Http response initialized with the given code, headers and rawBody
      * @param _code    The HTTP status code
      * @param _headers The HTTP headers read from response
      * @param _rawBody The raw data returned by the HTTP request
-     * @return Http response initialized with the given code, headers and rawBody
      */
     public HttpResponse(int _code, Map<String, String> _headers, InputStream _rawBody) {
         this.statusCode = _code;
@@ -48,11 +48,11 @@ public class HttpResponse {
     }
     
     /**
+     * Http response initialized with the given code, headers and rawBody
      * @param _code    The HTTP status code
      * @param _headers The HTTP headers read from response
      * @param _rawBody The raw data returned by the HTTP request
      * @param _baseReq The underlying http base request from the apache http library
-     * @return Http response initialized with the given code, headers and rawBody
      */
     public HttpResponse(int _code, Map<String, String> _headers, InputStream _rawBody, HttpRequestBase _baseReq) {
         this(_code, _headers, _rawBody);

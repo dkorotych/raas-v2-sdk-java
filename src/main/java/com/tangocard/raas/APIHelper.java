@@ -33,7 +33,7 @@ import com.mashape.unirest.http.Unirest;
 public class APIHelper {
     /* used for async execution of API calls using a thread pool */
     private static ExecutorService scheduler = null;
-    private static Object syncRoot = new Object();
+    private static final Object syncRoot = new Object();
   
     /**
      * Singleton access to the threadpool scheduler
@@ -109,7 +109,7 @@ public class APIHelper {
      * @param   <T>  The type of the object to deserialize into
      * @return  The deserialized object
      */
-    public static <T extends Object> T deserialize(String json, TypeReference<T> typeReference)
+    public static <T> T deserialize(String json, TypeReference<T> typeReference)
             throws IOException {
         if (isNullOrWhiteSpace(json))
             return null;
@@ -119,11 +119,10 @@ public class APIHelper {
 
     /**
      * JSON Deserialization of the given json string.
-     * @param   jParser The json parser for reading json to deserialize
      * @param   <T> The type of the object to deserialize into
      * @return  The deserialized object
      */
-    public static <T extends Object> T deserialize(String json, Class<T> typeReference)
+    public static <T> T deserialize(String json, Class<T> typeReference)
             throws IOException {
         if (isNullOrWhiteSpace(json))
             return null;
@@ -134,12 +133,12 @@ public class APIHelper {
     /**
      * Populates an object of an APIException subclass with the required properties.
      * @param   json The json string to deserialize
-     * @param   <APIException>  The object to populate.
+     * @param   obj  The object to populate.
      */
     public static void populate(String json, APIException obj)
             throws IOException {
         if (!isNullOrWhiteSpace(json))
-            mapper.readerForUpdating(obj).readValue(json);;
+            mapper.readerForUpdating(obj).readValue(json);
     }
 
     /**
@@ -172,7 +171,7 @@ public class APIHelper {
 
         //iterate and append parameters
         for (Map.Entry<String, Object> pair : parameters.entrySet()) {
-             String replaceValue = "";
+             String replaceValue;
 
              //load element value as string
              if (null == pair.getValue())
@@ -285,11 +284,11 @@ public class APIHelper {
      * @return  Dictionary of form fields created from array elements
      */
     public static Map<String, Object> prepareFormFields(Object value) {
-        Map<String, Object> formFields = new LinkedHashMap<String, Object>();
+        Map<String, Object> formFields = new LinkedHashMap<>();
         if(value != null) {
             try {
-                objectToMap("", value, formFields, new HashSet<Integer>());
-            } catch (Exception ex) {
+                objectToMap("", value, formFields, new HashSet<>());
+            } catch (Exception ignored) {
             }
         }
         return formFields;
@@ -306,8 +305,8 @@ public class APIHelper {
             if(obj == null)
                 return;
 
-            Map<String, Object> objectMap = new LinkedHashMap<String, Object>();
-            objectToMap(name, obj, objectMap, new HashSet<Integer>());
+            Map<String, Object> objectMap = new LinkedHashMap<>();
+            objectToMap(name, obj, objectMap, new HashSet<>());
             boolean hasParam = false;
 
             for (Map.Entry<String, Object> pair : objectMap.entrySet()) {
@@ -328,7 +327,7 @@ public class APIHelper {
             if(hasParam) {
                 objBuilder.setLength(objBuilder.length() - 1);
             }
-        } catch (Exception ex) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -344,7 +343,7 @@ public class APIHelper {
 
         //append all elements in the array into a string
         for (Object element : array) {
-            String elemValue = null;
+            String elemValue;
 
             //replace null values with empty string to maintain index order
             if (null == element) {
@@ -441,15 +440,13 @@ public class APIHelper {
                 loadKeyValuePairForEncoding(key, pair.getValue(), objectMap, processed);
             }
         } else if(obj instanceof UUID) {
-            String key = objName;
             String value = obj.toString();
             //UUIDs can be converted to string
-            loadKeyValuePairForEncoding(key, value, objectMap, processed);
+            loadKeyValuePairForEncoding(objName, value, objectMap, processed);
         } else if (obj instanceof Date) {
-            String key = objName;
             String value = dateToString((Date)obj);
             //UUIDs can be converted to string
-            loadKeyValuePairForEncoding(key, value, objectMap, processed);
+            loadKeyValuePairForEncoding(objName, value, objectMap, processed);
         } else {
             //process objects
             // invoke getter methods
@@ -461,12 +458,12 @@ public class APIHelper {
                     continue;
 
                 //get json attribute name
-                Annotation getterAnnotation = method.getAnnotation(JsonGetter.class);
+                JsonGetter getterAnnotation = method.getAnnotation(JsonGetter.class);
                 if (getterAnnotation == null)
                     continue;
 
                 //load key name
-                String attribName = ((JsonGetter) getterAnnotation).value();
+                String attribName = getterAnnotation.value();
                 String key = attribName;
                 if ((objName != null) && (!objName.isEmpty())) {
                     key = String.format("%s[%s]", objName, attribName);
@@ -476,7 +473,7 @@ public class APIHelper {
                     //load key value pair
                     Object value = method.invoke(obj);
                     loadKeyValuePairForEncoding(key, value, objectMap, processed);
-                } catch (Exception ex) {
+                } catch (Exception ignored) {
                 }
             }
             // load fields
@@ -493,7 +490,7 @@ public class APIHelper {
                     //load key value pair
                     Object value = field.get(obj);
                     loadKeyValuePairForEncoding(key, value, objectMap, processed);
-                } catch (Exception ex) { }
+                } catch (Exception ignored) { }
             }
         }
     }
@@ -521,7 +518,7 @@ public class APIHelper {
      * List of classes that are wrapped directly. This information is need when
      * traversing object trees for reference matching
      */
-    private static final Set<Class> WRAPPER_TYPES = new HashSet(Arrays.asList(
+    private static final Set<Class> WRAPPER_TYPES = new HashSet<>(Arrays.asList(
             Boolean.class, Character.class, Byte.class, Short.class, String.class,
             Integer.class, Long.class, Float.class, Double.class, Void.class, File.class));
 

@@ -8,7 +8,6 @@ package com.tangocard.raas.controllers;
 import java.util.*;
 
 import com.tangocard.raas.*;
-import com.tangocard.raas.exceptions.*;
 import com.tangocard.raas.http.client.HttpContext;
 import com.tangocard.raas.http.request.HttpRequest;
 import com.tangocard.raas.http.response.HttpResponse;
@@ -17,7 +16,7 @@ import com.tangocard.raas.controllers.syncwrapper.APICallBackCatcher;
 
 public class ExchangeRatesController extends BaseController {    
     //private static variables for the singleton pattern
-    private static Object syncObject = new Object();
+    private static final Object syncObject = new Object();
     private static ExchangeRatesController instance = null;
 
     /**
@@ -34,12 +33,11 @@ public class ExchangeRatesController extends BaseController {
     }
 
     /**
-     * Retrieve current exchange rates
-     * @return    Returns the void response from the API call 
+     * Retrieve current exchange rates. Returns the void response from the API call
      */
     public void getExchangeRates(
     ) throws Throwable {
-        APICallBackCatcher<Object> callback = new APICallBackCatcher<Object>();
+        APICallBackCatcher<Object> callback = new APICallBackCatcher<>();
         getExchangeRatesAsync(callback);
         if(!callback.isSuccess())
             throw callback.getError();
@@ -47,8 +45,7 @@ public class ExchangeRatesController extends BaseController {
     }
 
     /**
-     * Retrieve current exchange rates
-     * @return    Returns the void response from the API call 
+     * Retrieve current exchange rates. Returns the void response from the API call
      */
     public void getExchangeRatesAsync(
                 final APICallBack<Object> callBack
@@ -81,44 +78,40 @@ public class ExchangeRatesController extends BaseController {
         }
 
         //invoke request and get response
-        Runnable _responseTask = new Runnable() {
-            public void run() {
-                //make the API call
-                getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
-                    public void onSuccess(HttpContext _context, HttpResponse _response) {
-                        try {
+        Runnable _responseTask = () -> {
+            //make the API call
+            getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
+                public void onSuccess(HttpContext _context, HttpResponse _response) {
+                    try {
 
-                            //invoke the callback after response if its not null
-                            if (getHttpCallBack() != null)	
-                            {
-                                getHttpCallBack().OnAfterResponse(_context);
-                            }
-
-                            //handle errors defined at the API level
-                            validateResponse(_response, _context);
-
-                            //let the caller know of the success
-                            callBack.onSuccess(_context, _context);
-                        } catch (APIException error) {
-                            //let the caller know of the error
-                            callBack.onFailure(_context, error);
-                        } catch (Exception exception) {
-                            //let the caller know of the caught Exception
-                            callBack.onFailure(_context, exception);
-                        }
-                    }
-                    public void onFailure(HttpContext _context, Throwable _error) {
                         //invoke the callback after response if its not null
-                        if (getHttpCallBack() != null)	
-                            {
+                        if (getHttpCallBack() != null)
+                        {
                             getHttpCallBack().OnAfterResponse(_context);
                         }
 
-                        //let the caller know of the failure
-                        callBack.onFailure(_context, _error);
+                        //handle errors defined at the API level
+                        validateResponse(_response, _context);
+
+                        //let the caller know of the success
+                        callBack.onSuccess(_context, _context);
+                    } catch (Exception error) {
+                        //let the caller know of the error
+                        callBack.onFailure(_context, error);
+                    }//let the caller know of the caught Exception
+
+                }
+                public void onFailure(HttpContext _context, Throwable _error) {
+                    //invoke the callback after response if its not null
+                    if (getHttpCallBack() != null)
+                        {
+                        getHttpCallBack().OnAfterResponse(_context);
                     }
-                });
-            }
+
+                    //let the caller know of the failure
+                    callBack.onFailure(_context, _error);
+                }
+            });
         };
 
         //execute async using thread pool

@@ -13,7 +13,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import com.tangocard.raas.*;
 import com.tangocard.raas.models.*;
-import com.tangocard.raas.exceptions.*;
 import com.tangocard.raas.http.client.HttpContext;
 import com.tangocard.raas.http.request.HttpRequest;
 import com.tangocard.raas.http.response.HttpResponse;
@@ -23,7 +22,7 @@ import com.tangocard.raas.controllers.syncwrapper.APICallBackCatcher;
 
 public class AccountsController extends BaseController {    
     //private static variables for the singleton pattern
-    private static Object syncObject = new Object();
+    private static final Object syncObject = new Object();
     private static AccountsController instance = null;
 
     /**
@@ -42,12 +41,12 @@ public class AccountsController extends BaseController {
     /**
      * Gets a list of accounts for a given customer
      * @param    customerIdentifier    Required parameter: Customer Identifier
-     * @return    Returns the List<AccountSummaryModel> response from the API call 
+     * @return    Returns the List of {@link AccountSummaryModel} response from the API call
      */
     public List<AccountSummaryModel> getAccountsByCustomer(
                 final String customerIdentifier
     ) throws Throwable {
-        APICallBackCatcher<List<AccountSummaryModel>> callback = new APICallBackCatcher<List<AccountSummaryModel>>();
+        APICallBackCatcher<List<AccountSummaryModel>> callback = new APICallBackCatcher<>();
         getAccountsByCustomerAsync(customerIdentifier, callback);
         if(!callback.isSuccess())
             throw callback.getError();
@@ -55,9 +54,8 @@ public class AccountsController extends BaseController {
     }
 
     /**
-     * Gets a list of accounts for a given customer
+     * Gets a list of accounts for a given customer. Returns the void response from the API call
      * @param    customerIdentifier    Required parameter: Customer Identifier
-     * @return    Returns the void response from the API call 
      */
     public void getAccountsByCustomerAsync(
                 final String customerIdentifier,
@@ -103,52 +101,46 @@ public class AccountsController extends BaseController {
         }
 
         //invoke request and get response
-        Runnable _responseTask = new Runnable() {
-            public void run() {
-                //make the API call
-                getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
-                    public void onSuccess(HttpContext _context, HttpResponse _response) {
-                        try {
+        Runnable _responseTask = () -> {
+            //make the API call
+            getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
+                public void onSuccess(HttpContext _context, HttpResponse _response) {
+                    try {
 
-                            //invoke the callback after response if its not null
-                            if (getHttpCallBack() != null)	
-                            {
-                                getHttpCallBack().OnAfterResponse(_context);
-                            }
-
-                            //handle errors defined at the API level
-                            validateResponse(_response, _context);
-
-                            //extract result from the http response
-                            String _responseBody = ((HttpStringResponse)_response).getBody();
-                            List<AccountSummaryModel> _result = APIHelper.deserialize(_responseBody,
-                                                        new TypeReference<List<AccountSummaryModel>>(){});
-
-                            //let the caller know of the success
-                            callBack.onSuccess(_context, _result);
-                        } catch (APIException error) {
-                            //let the caller know of the error
-                            callBack.onFailure(_context, error);
-                        } catch (IOException ioException) {
-                            //let the caller know of the caught IO Exception
-                            callBack.onFailure(_context, ioException);
-                        } catch (Exception exception) {
-                            //let the caller know of the caught Exception
-                            callBack.onFailure(_context, exception);
-                        }
-                    }
-                    public void onFailure(HttpContext _context, Throwable _error) {
                         //invoke the callback after response if its not null
-                        if (getHttpCallBack() != null)	
-                            {
+                        if (getHttpCallBack() != null)
+                        {
                             getHttpCallBack().OnAfterResponse(_context);
                         }
 
-                        //let the caller know of the failure
-                        callBack.onFailure(_context, _error);
+                        //handle errors defined at the API level
+                        validateResponse(_response, _context);
+
+                        //extract result from the http response
+                        String _responseBody = ((HttpStringResponse)_response).getBody();
+                        List<AccountSummaryModel> _result = APIHelper.deserialize(_responseBody,
+                                                    new TypeReference<List<AccountSummaryModel>>(){});
+
+                        //let the caller know of the success
+                        callBack.onSuccess(_context, _result);
+                    } catch (Exception ioException) {
+                        //let the caller know of the caught IO Exception
+                        callBack.onFailure(_context, ioException);
+                    }//let the caller know of the error
+//let the caller know of the caught Exception
+
+                }
+                public void onFailure(HttpContext _context, Throwable _error) {
+                    //invoke the callback after response if its not null
+                    if (getHttpCallBack() != null)
+                        {
+                        getHttpCallBack().OnAfterResponse(_context);
                     }
-                });
-            }
+
+                    //let the caller know of the failure
+                    callBack.onFailure(_context, _error);
+                }
+            });
         };
 
         //execute async using thread pool
@@ -163,7 +155,7 @@ public class AccountsController extends BaseController {
     public AccountModel getAccount(
                 final String accountIdentifier
     ) throws Throwable {
-        APICallBackCatcher<AccountModel> callback = new APICallBackCatcher<AccountModel>();
+        APICallBackCatcher<AccountModel> callback = new APICallBackCatcher<>();
         getAccountAsync(accountIdentifier, callback);
         if(!callback.isSuccess())
             throw callback.getError();
@@ -171,9 +163,8 @@ public class AccountsController extends BaseController {
     }
 
     /**
-     * Get an account
+     * Get an account. Returns the void response from the API call
      * @param    accountIdentifier    Required parameter: Account Identifier
-     * @return    Returns the void response from the API call 
      */
     public void getAccountAsync(
                 final String accountIdentifier,
@@ -219,52 +210,46 @@ public class AccountsController extends BaseController {
         }
 
         //invoke request and get response
-        Runnable _responseTask = new Runnable() {
-            public void run() {
-                //make the API call
-                getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
-                    public void onSuccess(HttpContext _context, HttpResponse _response) {
-                        try {
+        Runnable _responseTask = () -> {
+            //make the API call
+            getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
+                public void onSuccess(HttpContext _context, HttpResponse _response) {
+                    try {
 
-                            //invoke the callback after response if its not null
-                            if (getHttpCallBack() != null)	
-                            {
-                                getHttpCallBack().OnAfterResponse(_context);
-                            }
-
-                            //handle errors defined at the API level
-                            validateResponse(_response, _context);
-
-                            //extract result from the http response
-                            String _responseBody = ((HttpStringResponse)_response).getBody();
-                            AccountModel _result = APIHelper.deserialize(_responseBody,
-                                                        new TypeReference<AccountModel>(){});
-
-                            //let the caller know of the success
-                            callBack.onSuccess(_context, _result);
-                        } catch (APIException error) {
-                            //let the caller know of the error
-                            callBack.onFailure(_context, error);
-                        } catch (IOException ioException) {
-                            //let the caller know of the caught IO Exception
-                            callBack.onFailure(_context, ioException);
-                        } catch (Exception exception) {
-                            //let the caller know of the caught Exception
-                            callBack.onFailure(_context, exception);
-                        }
-                    }
-                    public void onFailure(HttpContext _context, Throwable _error) {
                         //invoke the callback after response if its not null
-                        if (getHttpCallBack() != null)	
-                            {
+                        if (getHttpCallBack() != null)
+                        {
                             getHttpCallBack().OnAfterResponse(_context);
                         }
 
-                        //let the caller know of the failure
-                        callBack.onFailure(_context, _error);
+                        //handle errors defined at the API level
+                        validateResponse(_response, _context);
+
+                        //extract result from the http response
+                        String _responseBody = ((HttpStringResponse)_response).getBody();
+                        AccountModel _result = APIHelper.deserialize(_responseBody,
+                                                    new TypeReference<AccountModel>(){});
+
+                        //let the caller know of the success
+                        callBack.onSuccess(_context, _result);
+                    } catch (Exception ioException) {
+                        //let the caller know of the caught IO Exception
+                        callBack.onFailure(_context, ioException);
+                    }//let the caller know of the error
+//let the caller know of the caught Exception
+
+                }
+                public void onFailure(HttpContext _context, Throwable _error) {
+                    //invoke the callback after response if its not null
+                    if (getHttpCallBack() != null)
+                        {
+                        getHttpCallBack().OnAfterResponse(_context);
                     }
-                });
-            }
+
+                    //let the caller know of the failure
+                    callBack.onFailure(_context, _error);
+                }
+            });
         };
 
         //execute async using thread pool
@@ -281,7 +266,7 @@ public class AccountsController extends BaseController {
                 final String customerIdentifier,
                 final CreateAccountRequestModel body
     ) throws Throwable {
-        APICallBackCatcher<AccountModel> callback = new APICallBackCatcher<AccountModel>();
+        APICallBackCatcher<AccountModel> callback = new APICallBackCatcher<>();
         createAccountAsync(customerIdentifier, body, callback);
         if(!callback.isSuccess())
             throw callback.getError();
@@ -289,10 +274,9 @@ public class AccountsController extends BaseController {
     }
 
     /**
-     * Create an account under a given customer
+     * Create an account under a given customer. Returns the void response from the API call
      * @param    customerIdentifier    Required parameter: Customer Identifier
      * @param    body    Required parameter: Request Body
-     * @return    Returns the void response from the API call 
      */
     public void createAccountAsync(
                 final String customerIdentifier,
@@ -342,52 +326,46 @@ public class AccountsController extends BaseController {
         }
 
         //invoke request and get response
-        Runnable _responseTask = new Runnable() {
-            public void run() {
-                //make the API call
-                getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
-                    public void onSuccess(HttpContext _context, HttpResponse _response) {
-                        try {
+        Runnable _responseTask = () -> {
+            //make the API call
+            getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
+                public void onSuccess(HttpContext _context, HttpResponse _response) {
+                    try {
 
-                            //invoke the callback after response if its not null
-                            if (getHttpCallBack() != null)	
-                            {
-                                getHttpCallBack().OnAfterResponse(_context);
-                            }
-
-                            //handle errors defined at the API level
-                            validateResponse(_response, _context);
-
-                            //extract result from the http response
-                            String _responseBody = ((HttpStringResponse)_response).getBody();
-                            AccountModel _result = APIHelper.deserialize(_responseBody,
-                                                        new TypeReference<AccountModel>(){});
-
-                            //let the caller know of the success
-                            callBack.onSuccess(_context, _result);
-                        } catch (APIException error) {
-                            //let the caller know of the error
-                            callBack.onFailure(_context, error);
-                        } catch (IOException ioException) {
-                            //let the caller know of the caught IO Exception
-                            callBack.onFailure(_context, ioException);
-                        } catch (Exception exception) {
-                            //let the caller know of the caught Exception
-                            callBack.onFailure(_context, exception);
-                        }
-                    }
-                    public void onFailure(HttpContext _context, Throwable _error) {
                         //invoke the callback after response if its not null
-                        if (getHttpCallBack() != null)	
-                            {
+                        if (getHttpCallBack() != null)
+                        {
                             getHttpCallBack().OnAfterResponse(_context);
                         }
 
-                        //let the caller know of the failure
-                        callBack.onFailure(_context, _error);
+                        //handle errors defined at the API level
+                        validateResponse(_response, _context);
+
+                        //extract result from the http response
+                        String _responseBody = ((HttpStringResponse)_response).getBody();
+                        AccountModel _result = APIHelper.deserialize(_responseBody,
+                                                    new TypeReference<AccountModel>(){});
+
+                        //let the caller know of the success
+                        callBack.onSuccess(_context, _result);
+                    } catch (Exception ioException) {
+                        //let the caller know of the caught IO Exception
+                        callBack.onFailure(_context, ioException);
+                    }//let the caller know of the error
+//let the caller know of the caught Exception
+
+                }
+                public void onFailure(HttpContext _context, Throwable _error) {
+                    //invoke the callback after response if its not null
+                    if (getHttpCallBack() != null)
+                        {
+                        getHttpCallBack().OnAfterResponse(_context);
                     }
-                });
-            }
+
+                    //let the caller know of the failure
+                    callBack.onFailure(_context, _error);
+                }
+            });
         };
 
         //execute async using thread pool
@@ -396,11 +374,11 @@ public class AccountsController extends BaseController {
 
     /**
      * Gets all accounts under the platform
-     * @return    Returns the List<AccountModel> response from the API call 
+     * @return    Returns the List of {@link AccountModel} response from the API call
      */
     public List<AccountModel> getAllAccounts(
     ) throws Throwable {
-        APICallBackCatcher<List<AccountModel>> callback = new APICallBackCatcher<List<AccountModel>>();
+        APICallBackCatcher<List<AccountModel>> callback = new APICallBackCatcher<>();
         getAllAccountsAsync(callback);
         if(!callback.isSuccess())
             throw callback.getError();
@@ -408,8 +386,7 @@ public class AccountsController extends BaseController {
     }
 
     /**
-     * Gets all accounts under the platform
-     * @return    Returns the void response from the API call 
+     * Gets all accounts under the platform. Returns the void response from the API call
      */
     public void getAllAccountsAsync(
                 final APICallBack<List<AccountModel>> callBack
@@ -443,52 +420,46 @@ public class AccountsController extends BaseController {
         }
 
         //invoke request and get response
-        Runnable _responseTask = new Runnable() {
-            public void run() {
-                //make the API call
-                getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
-                    public void onSuccess(HttpContext _context, HttpResponse _response) {
-                        try {
+        Runnable _responseTask = () -> {
+            //make the API call
+            getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
+                public void onSuccess(HttpContext _context, HttpResponse _response) {
+                    try {
 
-                            //invoke the callback after response if its not null
-                            if (getHttpCallBack() != null)	
-                            {
-                                getHttpCallBack().OnAfterResponse(_context);
-                            }
-
-                            //handle errors defined at the API level
-                            validateResponse(_response, _context);
-
-                            //extract result from the http response
-                            String _responseBody = ((HttpStringResponse)_response).getBody();
-                            List<AccountModel> _result = APIHelper.deserialize(_responseBody,
-                                                        new TypeReference<List<AccountModel>>(){});
-
-                            //let the caller know of the success
-                            callBack.onSuccess(_context, _result);
-                        } catch (APIException error) {
-                            //let the caller know of the error
-                            callBack.onFailure(_context, error);
-                        } catch (IOException ioException) {
-                            //let the caller know of the caught IO Exception
-                            callBack.onFailure(_context, ioException);
-                        } catch (Exception exception) {
-                            //let the caller know of the caught Exception
-                            callBack.onFailure(_context, exception);
-                        }
-                    }
-                    public void onFailure(HttpContext _context, Throwable _error) {
                         //invoke the callback after response if its not null
-                        if (getHttpCallBack() != null)	
-                            {
+                        if (getHttpCallBack() != null)
+                        {
                             getHttpCallBack().OnAfterResponse(_context);
                         }
 
-                        //let the caller know of the failure
-                        callBack.onFailure(_context, _error);
+                        //handle errors defined at the API level
+                        validateResponse(_response, _context);
+
+                        //extract result from the http response
+                        String _responseBody = ((HttpStringResponse)_response).getBody();
+                        List<AccountModel> _result = APIHelper.deserialize(_responseBody,
+                                                    new TypeReference<List<AccountModel>>(){});
+
+                        //let the caller know of the success
+                        callBack.onSuccess(_context, _result);
+                    } catch (Exception ioException) {
+                        //let the caller know of the caught IO Exception
+                        callBack.onFailure(_context, ioException);
+                    }//let the caller know of the error
+//let the caller know of the caught Exception
+
+                }
+                public void onFailure(HttpContext _context, Throwable _error) {
+                    //invoke the callback after response if its not null
+                    if (getHttpCallBack() != null)
+                        {
+                        getHttpCallBack().OnAfterResponse(_context);
                     }
-                });
-            }
+
+                    //let the caller know of the failure
+                    callBack.onFailure(_context, _error);
+                }
+            });
         };
 
         //execute async using thread pool
