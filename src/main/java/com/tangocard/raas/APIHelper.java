@@ -8,7 +8,6 @@ package com.tangocard.raas;
 import java.io.File;
 import java.io.IOException;
 import java.io.InvalidObjectException;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URLEncoder;
@@ -18,6 +17,7 @@ import java.text.ParsePosition;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
  
@@ -30,6 +30,9 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 
 import com.tangocard.raas.exceptions.APIException;
 import com.mashape.unirest.http.Unirest;
+import lombok.extern.java.Log;
+
+@Log
 public class APIHelper {
     /* used for async execution of API calls using a thread pool */
     private static ExecutorService scheduler = null;
@@ -111,6 +114,9 @@ public class APIHelper {
      */
     public static <T> T deserialize(String json, TypeReference<T> typeReference)
             throws IOException {
+        if (log.isLoggable(Level.FINE)) {
+            log.fine(() -> "Deserializing json: " + json);
+        }
         if (isNullOrWhiteSpace(json))
             return null;
 
@@ -124,6 +130,9 @@ public class APIHelper {
      */
     public static <T> T deserialize(String json, Class<T> typeReference)
             throws IOException {
+        if (log.isLoggable(Level.FINE)) {
+            log.fine(() -> "Deserializing json: " + json);
+        }
         if (isNullOrWhiteSpace(json))
             return null;
 
@@ -148,6 +157,9 @@ public class APIHelper {
      */
     public static LinkedHashMap<String, Object> deserialize(String json)
             throws IOException {
+        if (log.isLoggable(Level.FINE)) {
+            log.fine(() -> "Deserializing json: " + json);
+        }
         if (isNullOrWhiteSpace(json))
             return null;
 
