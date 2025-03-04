@@ -38,7 +38,11 @@ public class Configuration {
         APIHelper.appendUrlWithTemplateParameters(baseUrl, parameters);
         return baseUrl.toString();
     }
-    
+
+    public static void setBaseUri(Servers server, String uri) {
+        environmentsMap.get(Configuration.environment).put(server, uri);
+    }
+
     /**
      * Get base URI by current environment
      * @return Processed base URI
@@ -46,7 +50,11 @@ public class Configuration {
     public static String getBaseUri() {
         return Configuration.getBaseUri(Servers.DEFAULT);
     }
-    
+
+    public static void setBaseUri(String uri) {
+        Configuration.setBaseUri(Servers.DEFAULT, uri);
+    }
+
     /**
      * Map of all base URLs by environments and server aliases 
      */
